@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Create a Quiz</h2>
+    <input type="text" id="quizTitle" placeholder="Quiz Title"><br><br>
+
+    <textarea id="questionText" placeholder="Enter Question"></textarea><br>
+    <input type="text" id="optionA" placeholder="Option A"><br>
+    <input type="text" id="optionB" placeholder="Option B"><br>
+    <input type="text" id="optionC" placeholder="Option C"><br>
+    <input type="text" id="optionD" placeholder="Option D"><br>
+    <input type="text" id="correctOption" placeholder="Correct Option (A/B/C/D)"><br><br>
+
+    <button onclick="addQuestion()">Add Question</button>
+    <button onclick="saveQuiz()">Save Quiz</button>
+
+    <div id="status"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

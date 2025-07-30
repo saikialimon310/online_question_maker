@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login/Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="login()">Login</button>
+
+    <h2>Register</h2>
+    <input type="text" id="registerUsername" placeholder="Username">
+    <input type="password" id="registerPassword" placeholder="Password">
+    <button onclick="register()">Register</button>
+
+    <div id="status"></div>
+  </div>
+
+  
+
+  <script>
+  function register() {
+    const username = document.getElementById('registerUsername').value.trim();
+    const password = document.getElementById('registerPassword').value.trim();
+
+    if (username === '' || password === '') {
+      document.getElementById('status').innerText = "Please enter a username and password!";
+      return;
+    }
+
+    localStorage.setItem(username, password);
+    document.getElementById('status').innerText = "Registered successfully!";
+  }
+
+  function login() {
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+
+    if (username === '' || password === '') {
+      document.getElementById('status').innerText = "Please enter a username and password!";
+      return;
+    }
+
+    if (localStorage.getItem(username) === password) {
+      // Save logged-in user for future use
+      localStorage.setItem('loggedInUser', username);
+      // Redirect to home page
+      window.location.href = "index.html";
+    } else {
+      document.getElementById('status').innerText = "Invalid login!";
+    }
+  }
+</script>
+
+
+</body>
+</html>

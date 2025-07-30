@@ -1,0 +1,99 @@
+<!-- take_quiz.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Take Quiz</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .question-box {
+      background: #f0f8ff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .question-box p {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .question-box label {
+      display: block;
+      margin: 8px 0;
+      font-size: 16px;
+    }
+    #result {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      padding: 15px;
+      border-radius: 10px;
+      color: #155724;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 id="quizTitle">Quiz</h2>
+    <div id="questionContainer" class="question-box"></div>
+    <button onclick="nextQuestion()">Next</button>
+    <div id="result" style="margin-top: 10px;"></div>
+  </div>
+
+  <script>
+    let quizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+    let quizIndex = parseInt(localStorage.getItem("currentQuizIndex"));
+    let currentQuiz = quizzes[quizIndex];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const container = document.getElementById("questionContainer");
+      container.innerHTML = "";
+      document.getElementById("quizTitle").innerText = currentQuiz.title;
+
+      if (currentQuestionIndex < currentQuiz.questions.length) {
+        const q = currentQuiz.questions[currentQuestionIndex];
+
+        const qText = document.createElement("p");
+        qText.innerText = q.question;
+        container.appendChild(qText);
+
+        q.options.forEach((opt, i) => {
+          const label = document.createElement("label");
+          const radio = document.createElement("input");
+          radio.type = "radio";
+          radio.name = "option";
+          radio.value = i;
+          label.appendChild(radio);
+          label.appendChild(document.createTextNode(opt));
+          container.appendChild(label);
+        });
+      } else {
+        document.getElementById("result").innerText = `Quiz complete! Your score is ${score}/${currentQuiz.questions.length}`;
+        document.querySelector("button").style.display = "none";
+      }
+    }
+
+    function nextQuestion() {
+      const selected = document.querySelector("input[name='option']:checked");
+      if (!selected) {
+        alert("Please select an option.");
+        return;
+      }
+
+      const answer = parseInt(selected.value);
+      if (answer === currentQuiz.questions[currentQuestionIndex].correct) {
+        score++;
+      }
+
+      currentQuestionIndex++;
+      showQuestion();
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>

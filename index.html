@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Online Quiz Maker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2 id="welcomeMessage">Welcome!</h2> <!-- This will show the username -->
+
+    <a href="create.html" class="btn">Create a Quiz</a>
+    <a href="quiz.html" class="btn">Take a Quiz</a>
+    <a href="login.html" class="btn" onclick="logout()">Logout</a>
+  </div>
+
+  <script>
+    // Get logged in user
+    const user = localStorage.getItem('loggedInUser');
+    const welcomeMessage = document.getElementById('welcomeMessage');
+
+    if (user) {
+      welcomeMessage.innerText = `Welcome, ${user}!`;
+    } else {
+      // If no user logged in, redirect to login page
+      window.location.href = "login.html";
+    }
+
+    function logout() {
+      localStorage.removeItem('loggedInUser');
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
+
